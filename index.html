@@ -1,1 +1,539 @@
-<html><body><h1>Hello, World!</h1></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elizabeth Lisic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f9f6f1;
+      --warm-white: #fffdf9;
+      --ink: #1c1a17;
+      --muted: #6b6560;
+      --accent: #4a7c59;
+      --border: #e2ddd7;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 4rem;
+      background: rgba(249, 246, 241, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-name {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 4rem 4rem;
+    }
+
+    .hero-inner { max-width: 760px; }
+
+    .hero-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-name em { font-style: italic; color: var(--accent); }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .hero-cta:hover { color: var(--accent); border-color: var(--accent); }
+
+    section {
+      padding: 6rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 3rem;
+    }
+
+    /* ABOUT */
+    #about {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 5rem;
+      align-items: start;
+      border-top: 1px solid var(--border);
+    }
+
+    .about-text { font-size: 1.05rem; line-height: 1.85; color: var(--ink); }
+    .about-text p + p { margin-top: 1.25rem; }
+
+    .about-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+
+    .tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--muted);
+      background: var(--warm-white);
+    }
+
+    /* SHARED ROW LAYOUT */
+    .row-section { border-top: 1px solid var(--border); }
+    .row-grid { display: flex; flex-direction: column; }
+
+    .row-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .row-item:first-child { border-top: 1px solid var(--border); }
+
+    .row-meta-date {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .row-meta-sub {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--accent);
+    }
+
+    .row-title {
+      font-family: var(--serif);
+      font-size: 1.45rem;
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .row-desc { font-size: 0.95rem; color: var(--muted); line-height: 1.75; }
+
+    /* AWARDS */
+    #awards { border-top: 1px solid var(--border); }
+    .awards-grid { display: flex; flex-direction: column; }
+
+    .award-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
+    }
+
+    .award-item:first-child { border-top: 1px solid var(--border); }
+
+    .award-year {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .award-name {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 400;
+      line-height: 1.3;
+    }
+
+    .award-org { font-size: 0.85rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* CONTACT */
+    #contact { border-top: 1px solid var(--border); }
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .contact-intro {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    .contact-intro em { font-style: italic; color: var(--accent); }
+
+    .contact-list { list-style: none; display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-list li { display: flex; flex-direction: column; gap: 0.15rem; }
+
+    .contact-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    .contact-value {
+      font-size: 1rem;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+      width: fit-content;
+    }
+
+    .contact-value:hover { color: var(--accent); border-color: var(--accent); }
+
+    footer {
+      text-align: center;
+      padding: 2rem 4rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      .hero { padding: 7rem 1.5rem 4rem; }
+      section { padding: 4rem 1.5rem; }
+      #about { grid-template-columns: 1fr; gap: 2rem; }
+      .row-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .award-item { grid-template-columns: 1fr; gap: 0.4rem; }
+      .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-name" href="#">Elizabeth Lisic</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#professional">Professional</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#awards">Awards</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-inner">
+      <p class="hero-label">Aspiring Veterinary Professional</p>
+      <h1 class="hero-name">Elizabeth<br /><em>Lisic</em></h1>
+      <p class="hero-sub">Dedicated animal caretaker and volunteer seeking hands-on clinical experience in veterinary medicine.</p>
+      <a class="hero-cta" href="#about">Learn more &rarr;</a>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div>
+      <p class="section-label">About Me</p>
+    </div>
+    <div>
+      <div class="about-text">
+        <p>I'm a student at Blacksburg High School with a deep love for animals and a commitment to their wellbeing, regardless of their situation or background. As the primary caretaker of two cats and many fish at home, animal care is a natural part of my everyday life.</p>
+        <p>I dedicate around 8.5 hours each week at Advantage Ranch, where I take horse riding lessons and assist with barn chores, developing a hands-on understanding of large animal care. Every two weeks, I volunteer in cat socialization at the Montgomery County Animal Shelter, helping animals become more comfortable with people and increasing their chances of adoption.</p>
+        <p>I am actively seeking a veterinary clinic internship to build real-world clinical skills and take the next step toward a career in veterinary medicine.</p>
+      </div>
+      <div class="about-tags">
+        <span class="tag">Animal Care</span>
+        <span class="tag">Horse Riding</span>
+        <span class="tag">Shelter Volunteering</span>
+        <span class="tag">Large Animals</span>
+        <span class="tag">Small Animals</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================
+       EXPERIENCE
+       To add a new entry: copy one .row-item block
+       below, paste it before the closing </div> tag,
+       and update the text inside.
+  =============================================== -->
+  <section id="experience" class="row-section">
+    <p class="section-label">Experience</p>
+    <div class="row-grid">
+
+      <!-- ENTRY: Advantage Ranch -->
+      <div class="row-item">
+        <div>
+          <p class="row-meta-date">Ongoing &middot; ~8.5 hrs/week</p>
+          <p class="row-meta-sub">Advantage Ranch</p>
+        </div>
+        <div>
+          <h3 class="row-title">Equestrian</h3>
+          <p class="row-desc">Take regular horse riding lessons while actively assisting with daily barn chores and animal care responsibilities, gaining practical experience in the handling and routine maintenance of horses.</p>
+          <ul class="row-desc" style="margin-top: 0.75rem; padding-left: 1.25rem;">
+            <li>Director, Appaloosa Youth Board of Directors — contributing to leadership and youth development within the equestrian community</li>
+            <li>NSBA World Championship (2025)</li>
+            <li>Reserve APHC World Championship (2025)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ENTRY: Montgomery County Animal Shelter -->
+      <div class="row-item">
+        <div>
+          <p class="row-meta-date">Ongoing &middot; Every 2 weeks</p>
+          <p class="row-meta-sub">Montgomery County Animal Shelter</p>
+        </div>
+        <div>
+          <h3 class="row-title">Cat Socialization Volunteer</h3>
+          <p class="row-desc">Work directly with shelter cats to improve their comfort around people through regular socialization sessions, helping to increase their adoptability and overall wellbeing while in the shelter's care.</p>
+        </div>
+      </div>
+
+      <!-- ENTRY: Home -->
+      <div class="row-item">
+        <div>
+          <p class="row-meta-date">Ongoing</p>
+          <p class="row-meta-sub">Home</p>
+        </div>
+        <div>
+          <h3 class="row-title">Primary Animal Caretaker</h3>
+          <p class="row-desc">Sole caretaker for two cats and multiple aquarium fish, managing daily feeding routines, health monitoring, habitat upkeep, and general wellbeing — building consistent, attentive animal husbandry habits.</p>
+        </div>
+      </div>
+
+      <!-- ADD NEW EXPERIENCE ENTRIES HERE -->
+
+    </div>
+  </section>
+
+  <!-- ==============================================
+       PROFESSIONAL EXPERIENCE
+       To add a new entry: copy one .row-item block
+       below, paste it before the closing </div> tag,
+       and update the text inside.
+  =============================================== -->
+  <section id="professional" class="row-section">
+    <p class="section-label">Professional Experience</p>
+    <div class="row-grid">
+
+      <!-- ENTRY: Placeholder - replace with your real professional experience -->
+      <div class="row-item">
+        <div>
+          <p class="row-meta-date">June 2025 &ndash; August 2025</p>
+          <p class="row-meta-sub">Virginia Tech / Engineering Lab</p>
+        </div>
+        <div>
+          <h3 class="row-title">Lab Assistant</h3>
+          <p class="row-desc">Worked under the supervision of Professor Allan Asbeck in product design for exoskeletons.</p>
+        </div>
+      </div>
+
+      <!-- ADD NEW PROFESSIONAL EXPERIENCE ENTRIES HERE -->
+
+    </div>
+  </section>
+
+  <!-- ==============================================
+       EDUCATION
+       To add a new entry: copy one .row-item block
+       below, paste it before the closing </div> tag,
+       and update the text inside.
+  =============================================== -->
+  <section id="education" class="row-section">
+    <p class="section-label">Education</p>
+    <div class="row-grid">
+
+      <!-- ENTRY: Blacksburg High School -->
+      <div class="row-item">
+        <div>
+          <p class="row-meta-date">Expected 2028</p>
+          <p class="row-meta-sub">Blacksburg High School</p>
+        </div>
+        <div>
+          <h3 class="row-title">High School Diploma</h3>
+          <p class="row-desc">Maintaining a 4.0 GPA with a rigorous course load including AP Statistics and AP Pre-Calculus. Committed to academic excellence while balancing extensive extracurricular involvement in equestrian competition and animal welfare volunteering.</p>
+        </div>
+      </div>
+
+      <!-- ENTRY: John Hopkins -->
+      <div class="row-item">
+        <div>
+          <p class="row-meta-date">2022</p>
+          <p class="row-meta-sub">John Hopkins Center for Talented Youth</p>
+        </div>
+        <div>
+          <h3 class="row-title">Summer Program</h3>
+          <p class="row-desc">Participated in a competitive summer program focused on Cryptology.  Studied advanced mathematical concepts and problem-solving techniques including encryption algorithms, number theory, and algorithm design.</p>
+        </div>
+      </div>
+      <!-- ADD NEW EDUCATION ENTRIES HERE -->
+
+    </div>
+  </section>
+
+  <!-- ==============================================
+       AWARDS
+       To add a new award: copy one .award-item block
+       below, paste it before the closing </div> tag,
+       and update the text inside.
+  =============================================== -->
+  <section id="awards">
+    <p class="section-label">Awards &amp; Recognition</p>
+    <div class="awards-grid">
+
+      <!-- AWARD: NSBA World Championship -->
+      <div class="award-item">
+        <p class="award-year">2025</p>
+        <div>
+          <p class="award-name">NSBA World Championship</p>
+          <p class="award-org">National Snaffle Bit Association</p>
+        </div>
+      </div>
+
+      <!-- AWARD: Reserve APHC World Championship -->
+      <div class="award-item">
+        <p class="award-year">2025</p>
+        <div>
+          <p class="award-name">Reserve APHC World Championship</p>
+          <p class="award-org">Appaloosa Horse Club</p>
+        </div>
+      </div>
+
+      <!-- AWARD: American Visions Nominee -->
+      <div class="award-item">
+        <p class="award-year">2025</p>
+        <div>
+          <p class="award-name">American Visions Nominee &mdash; Southwest Virginia</p>
+          <p class="award-org">Scholastic Art &amp; Writing Awards</p>
+        </div>
+      </div>
+
+      <!-- AWARD: National History Day -->
+      <div class="award-item">
+        <p class="award-year">2025</p>
+        <div>
+          <p class="award-name">National Technology Student Association</p>
+          <p class="award-org">Scholastic Art &amp; Writing Awards</p>
+        </div>
+      </div>
+
+      <!-- AWARD: American Visions Nominee -->
+      <div class="award-item">
+        <p class="award-year">2025</p>
+        <div>
+          <p class="award-name">3rd Place Group Performance &amp;Naval Order Of The United States Award in Naval History</p>
+          <p class="award-org">Virginia National History Day (NHD)</p>
+        </div>
+      </div>
+
+       <!-- AWARD: Black Belt -->
+      <div class="award-item">
+        <p class="award-year">2022</p>
+        <div>
+          <p class="award-name">Tae-Kwon-Do Black Belt</p>
+          <p class="award-org">Kukkiwon, (Pil-Seung Tae-Kwon-Do, Blacksburg, VA)</p>
+        </div>
+      </div>
+
+      <!-- ADD NEW AWARD ENTRIES HERE -->
+
+    </div>
+  </section>
+
+
+  <footer>
+    <p>&copy; 2026 Elizabeth Lisic</p>
+  </footer>
+
+</body>
+</html>
